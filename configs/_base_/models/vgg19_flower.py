@@ -1,4 +1,3 @@
-# model settings
 model = dict(
     type='ImageClassifier',
     backbone=dict(type='VGG', depth=16, num_classes=17),
