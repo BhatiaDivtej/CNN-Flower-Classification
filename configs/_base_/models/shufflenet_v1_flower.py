@@ -1,19 +1,12 @@
 # model settings
 model = dict(
     type='ImageClassifier',
-    backbone=dict(
-        type='ResNeXt',
-        depth=101,
-        num_stages=4,
-        out_indices=(3, ),
-        groups=32,
-        width_per_group=4,
-        style='pytorch'),
+    backbone=dict(type='ShuffleNetV1', groups=3),
     neck=dict(type='GlobalAveragePooling'),
     head=dict(
         type='LinearClsHead',
         num_classes=17,
-        in_channels=2048,
+        in_channels=960,
         loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
         topk=(1, 5),
     ))
