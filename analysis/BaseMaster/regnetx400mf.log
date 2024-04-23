@@ -1,0 +1,102 @@
+2024-04-01 17:49:13,922 - mmcls - INFO - workflow: [('train', 1)], max: 50 epochs
+2024-04-01 17:49:13,922 - mmcls - INFO - Checkpoints will be saved to /userhome/cs2/u3570905/CNN_Image_Classification_Code/output/regnetx_400mf_b32x8_imagenet_flowers by HardDiskBackend.
+2024-04-01 17:49:23,738 - mmcls - INFO - Saving checkpoint at 1 epochs
+2024-04-01 17:49:25,529 - mmcls - INFO - Epoch(val) [1][6]	accuracy_top-1: 21.7647, accuracy_top-5: 68.2353
+2024-04-01 17:49:35,402 - mmcls - INFO - Saving checkpoint at 2 epochs
+2024-04-01 17:49:37,281 - mmcls - INFO - Epoch(val) [2][6]	accuracy_top-1: 28.2353, accuracy_top-5: 87.0588
+2024-04-01 17:49:47,322 - mmcls - INFO - Saving checkpoint at 3 epochs
+2024-04-01 17:49:49,138 - mmcls - INFO - Epoch(val) [3][6]	accuracy_top-1: 45.2941, accuracy_top-5: 87.0588
+2024-04-01 17:49:59,105 - mmcls - INFO - Saving checkpoint at 4 epochs
+2024-04-01 17:50:01,001 - mmcls - INFO - Epoch(val) [4][6]	accuracy_top-1: 46.4706, accuracy_top-5: 92.3529
+2024-04-01 17:50:10,917 - mmcls - INFO - Saving checkpoint at 5 epochs
+2024-04-01 17:50:12,828 - mmcls - INFO - Epoch(val) [5][6]	accuracy_top-1: 44.7059, accuracy_top-5: 89.4118
+2024-04-01 17:50:22,876 - mmcls - INFO - Saving checkpoint at 6 epochs
+2024-04-01 17:50:24,734 - mmcls - INFO - Epoch(val) [6][6]	accuracy_top-1: 39.4118, accuracy_top-5: 85.2941
+2024-04-01 17:50:34,789 - mmcls - INFO - Saving checkpoint at 7 epochs
+2024-04-01 17:50:36,644 - mmcls - INFO - Epoch(val) [7][6]	accuracy_top-1: 52.3529, accuracy_top-5: 90.0000
+2024-04-01 17:50:46,499 - mmcls - INFO - Saving checkpoint at 8 epochs
+2024-04-01 17:50:48,258 - mmcls - INFO - Epoch(val) [8][6]	accuracy_top-1: 51.7647, accuracy_top-5: 95.8824
+2024-04-01 17:50:58,145 - mmcls - INFO - Saving checkpoint at 9 epochs
+2024-04-01 17:50:59,933 - mmcls - INFO - Epoch(val) [9][6]	accuracy_top-1: 52.9412, accuracy_top-5: 95.8824
+2024-04-01 17:51:10,000 - mmcls - INFO - Saving checkpoint at 10 epochs
+2024-04-01 17:51:11,856 - mmcls - INFO - Epoch(val) [10][6]	accuracy_top-1: 51.7647, accuracy_top-5: 94.1176
+2024-04-01 17:51:21,706 - mmcls - INFO - Saving checkpoint at 11 epochs
+2024-04-01 17:51:23,522 - mmcls - INFO - Epoch(val) [11][6]	accuracy_top-1: 60.0000, accuracy_top-5: 94.7059
+2024-04-01 17:51:33,584 - mmcls - INFO - Saving checkpoint at 12 epochs
+2024-04-01 17:51:35,589 - mmcls - INFO - Epoch(val) [12][6]	accuracy_top-1: 53.5294, accuracy_top-5: 96.4706
+2024-04-01 17:51:45,949 - mmcls - INFO - Saving checkpoint at 13 epochs
+2024-04-01 17:51:47,833 - mmcls - INFO - Epoch(val) [13][6]	accuracy_top-1: 57.0588, accuracy_top-5: 94.7059
+2024-04-01 17:51:57,548 - mmcls - INFO - Saving checkpoint at 14 epochs
+2024-04-01 17:51:59,725 - mmcls - INFO - Epoch(val) [14][6]	accuracy_top-1: 60.0000, accuracy_top-5: 94.1176
+2024-04-01 17:52:09,593 - mmcls - INFO - Saving checkpoint at 15 epochs
+2024-04-01 17:52:11,437 - mmcls - INFO - Epoch(val) [15][6]	accuracy_top-1: 61.1765, accuracy_top-5: 95.2941
+2024-04-01 17:52:21,421 - mmcls - INFO - Saving checkpoint at 16 epochs
+2024-04-01 17:52:23,554 - mmcls - INFO - Epoch(val) [16][6]	accuracy_top-1: 67.0588, accuracy_top-5: 93.5294
+2024-04-01 17:52:33,530 - mmcls - INFO - Saving checkpoint at 17 epochs
+2024-04-01 17:52:35,416 - mmcls - INFO - Epoch(val) [17][6]	accuracy_top-1: 61.1765, accuracy_top-5: 94.7059
+2024-04-01 17:52:45,256 - mmcls - INFO - Saving checkpoint at 18 epochs
+2024-04-01 17:52:47,078 - mmcls - INFO - Epoch(val) [18][6]	accuracy_top-1: 61.1765, accuracy_top-5: 94.7059
+2024-04-01 17:52:57,003 - mmcls - INFO - Saving checkpoint at 19 epochs
+2024-04-01 17:52:58,856 - mmcls - INFO - Epoch(val) [19][6]	accuracy_top-1: 61.7647, accuracy_top-5: 95.2941
+2024-04-01 17:53:08,722 - mmcls - INFO - Saving checkpoint at 20 epochs
+2024-04-01 17:53:10,599 - mmcls - INFO - Epoch(val) [20][6]	accuracy_top-1: 65.8824, accuracy_top-5: 97.0588
+2024-04-01 17:53:20,782 - mmcls - INFO - Saving checkpoint at 21 epochs
+2024-04-01 17:53:22,532 - mmcls - INFO - Epoch(val) [21][6]	accuracy_top-1: 64.1176, accuracy_top-5: 94.7059
+2024-04-01 17:53:32,273 - mmcls - INFO - Saving checkpoint at 22 epochs
+2024-04-01 17:53:34,045 - mmcls - INFO - Epoch(val) [22][6]	accuracy_top-1: 65.8824, accuracy_top-5: 97.6471
+2024-04-01 17:53:43,878 - mmcls - INFO - Saving checkpoint at 23 epochs
+2024-04-01 17:53:45,659 - mmcls - INFO - Epoch(val) [23][6]	accuracy_top-1: 64.1176, accuracy_top-5: 94.7059
+2024-04-01 17:53:55,522 - mmcls - INFO - Saving checkpoint at 24 epochs
+2024-04-01 17:53:57,337 - mmcls - INFO - Epoch(val) [24][6]	accuracy_top-1: 64.7059, accuracy_top-5: 95.8824
+2024-04-01 17:54:07,475 - mmcls - INFO - Saving checkpoint at 25 epochs
+2024-04-01 17:54:09,348 - mmcls - INFO - Epoch(val) [25][6]	accuracy_top-1: 66.4706, accuracy_top-5: 94.1176
+2024-04-01 17:54:19,152 - mmcls - INFO - Saving checkpoint at 26 epochs
+2024-04-01 17:54:21,039 - mmcls - INFO - Epoch(val) [26][6]	accuracy_top-1: 66.4706, accuracy_top-5: 95.8824
+2024-04-01 17:54:30,906 - mmcls - INFO - Saving checkpoint at 27 epochs
+2024-04-01 17:54:32,704 - mmcls - INFO - Epoch(val) [27][6]	accuracy_top-1: 64.7059, accuracy_top-5: 94.7059
+2024-04-01 17:54:42,961 - mmcls - INFO - Saving checkpoint at 28 epochs
+2024-04-01 17:54:44,810 - mmcls - INFO - Epoch(val) [28][6]	accuracy_top-1: 69.4118, accuracy_top-5: 97.6471
+2024-04-01 17:54:54,742 - mmcls - INFO - Saving checkpoint at 29 epochs
+2024-04-01 17:54:56,598 - mmcls - INFO - Epoch(val) [29][6]	accuracy_top-1: 70.5882, accuracy_top-5: 97.0588
+2024-04-01 17:55:06,503 - mmcls - INFO - Saving checkpoint at 30 epochs
+2024-04-01 17:55:08,369 - mmcls - INFO - Epoch(val) [30][6]	accuracy_top-1: 64.1176, accuracy_top-5: 96.4706
+2024-04-01 17:55:18,508 - mmcls - INFO - Saving checkpoint at 31 epochs
+2024-04-01 17:55:20,327 - mmcls - INFO - Epoch(val) [31][6]	accuracy_top-1: 70.0000, accuracy_top-5: 97.0588
+2024-04-01 17:55:30,614 - mmcls - INFO - Saving checkpoint at 32 epochs
+2024-04-01 17:55:32,426 - mmcls - INFO - Epoch(val) [32][6]	accuracy_top-1: 64.7059, accuracy_top-5: 95.8824
+2024-04-01 17:55:42,476 - mmcls - INFO - Saving checkpoint at 33 epochs
+2024-04-01 17:55:44,391 - mmcls - INFO - Epoch(val) [33][6]	accuracy_top-1: 65.8824, accuracy_top-5: 96.4706
+2024-04-01 17:55:54,670 - mmcls - INFO - Saving checkpoint at 34 epochs
+2024-04-01 17:55:56,676 - mmcls - INFO - Epoch(val) [34][6]	accuracy_top-1: 68.8235, accuracy_top-5: 97.6471
+2024-04-01 17:56:06,539 - mmcls - INFO - Saving checkpoint at 35 epochs
+2024-04-01 17:56:08,375 - mmcls - INFO - Epoch(val) [35][6]	accuracy_top-1: 65.2941, accuracy_top-5: 93.5294
+2024-04-01 17:56:18,062 - mmcls - INFO - Saving checkpoint at 36 epochs
+2024-04-01 17:56:19,952 - mmcls - INFO - Epoch(val) [36][6]	accuracy_top-1: 67.6471, accuracy_top-5: 96.4706
+2024-04-01 17:56:30,052 - mmcls - INFO - Saving checkpoint at 37 epochs
+2024-04-01 17:56:31,846 - mmcls - INFO - Epoch(val) [37][6]	accuracy_top-1: 79.4118, accuracy_top-5: 95.8824
+2024-04-01 17:56:41,925 - mmcls - INFO - Saving checkpoint at 38 epochs
+2024-04-01 17:56:44,019 - mmcls - INFO - Epoch(val) [38][6]	accuracy_top-1: 71.1765, accuracy_top-5: 96.4706
+2024-04-01 17:56:54,164 - mmcls - INFO - Saving checkpoint at 39 epochs
+2024-04-01 17:56:56,053 - mmcls - INFO - Epoch(val) [39][6]	accuracy_top-1: 72.3529, accuracy_top-5: 97.6471
+2024-04-01 17:57:05,953 - mmcls - INFO - Saving checkpoint at 40 epochs
+2024-04-01 17:57:08,120 - mmcls - INFO - Epoch(val) [40][6]	accuracy_top-1: 72.3529, accuracy_top-5: 96.4706
+2024-04-01 17:57:17,949 - mmcls - INFO - Saving checkpoint at 41 epochs
+2024-04-01 17:57:19,788 - mmcls - INFO - Epoch(val) [41][6]	accuracy_top-1: 70.0000, accuracy_top-5: 95.2941
+2024-04-01 17:57:29,878 - mmcls - INFO - Saving checkpoint at 42 epochs
+2024-04-01 17:57:31,665 - mmcls - INFO - Epoch(val) [42][6]	accuracy_top-1: 71.7647, accuracy_top-5: 97.0588
+2024-04-01 17:57:41,591 - mmcls - INFO - Saving checkpoint at 43 epochs
+2024-04-01 17:57:43,428 - mmcls - INFO - Epoch(val) [43][6]	accuracy_top-1: 76.4706, accuracy_top-5: 95.8824
+2024-04-01 17:57:53,232 - mmcls - INFO - Saving checkpoint at 44 epochs
+2024-04-01 17:57:55,068 - mmcls - INFO - Epoch(val) [44][6]	accuracy_top-1: 68.8235, accuracy_top-5: 96.4706
+2024-04-01 17:58:05,070 - mmcls - INFO - Saving checkpoint at 45 epochs
+2024-04-01 17:58:07,068 - mmcls - INFO - Epoch(val) [45][6]	accuracy_top-1: 72.9412, accuracy_top-5: 97.0588
+2024-04-01 17:58:17,126 - mmcls - INFO - Saving checkpoint at 46 epochs
+2024-04-01 17:58:19,210 - mmcls - INFO - Epoch(val) [46][6]	accuracy_top-1: 74.7059, accuracy_top-5: 97.0588
+2024-04-01 17:58:29,180 - mmcls - INFO - Saving checkpoint at 47 epochs
+2024-04-01 17:58:31,013 - mmcls - INFO - Epoch(val) [47][6]	accuracy_top-1: 77.0588, accuracy_top-5: 97.6471
+2024-04-01 17:58:41,176 - mmcls - INFO - Saving checkpoint at 48 epochs
+2024-04-01 17:58:43,588 - mmcls - INFO - Epoch(val) [48][6]	accuracy_top-1: 76.4706, accuracy_top-5: 97.0588
+2024-04-01 17:58:53,429 - mmcls - INFO - Saving checkpoint at 49 epochs
+2024-04-01 17:58:55,231 - mmcls - INFO - Epoch(val) [49][6]	accuracy_top-1: 72.9412, accuracy_top-5: 97.6471
+2024-04-01 17:59:05,166 - mmcls - INFO - Saving checkpoint at 50 epochs
+2024-04-01 17:59:07,006 - mmcls - INFO - Epoch(val) [50][6]	accuracy_top-1: 78.2353, accuracy_top-5: 96.4706
