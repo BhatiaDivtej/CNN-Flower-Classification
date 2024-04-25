@@ -236,14 +236,14 @@ python tools/train.py
 
 Similarly, to train other models, replace `[model_dir]` and `[model_name]` in the command with the appropriate directory and model configuration file name. For example, to train ResNet50:
 
-```shell
+
 
 python tools/train.py
 
   --config configs/resnet/resnet50_flowers.py
 
   --work-dir 'output/resnet50'
-'''
+
 
 #### More Models on Jupyter Notebook
 
