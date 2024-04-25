@@ -245,9 +245,9 @@ python tools/train.py
   --work-dir 'output/resnet50'
 
 
-#### More Models on Jupyter Notebook
+### More Models on Jupyter Notebook
 
-##### Alexnet and DenseNet training
+#### Alexnet and DenseNet training
 
 The folder in the main directory labeled "Alexnet and Densenet" contains a jupyter notebook containing the code
 to run alexnet and densenet in the same file. Download the 17flowers folder containing the labeled fdata from
@@ -260,9 +260,9 @@ and run the Jupyter notebook.
 
 
 
-Alexnet Accuracy: 64%
-Resnet Accuracy: 70.59% (self written code from scratch based on the same dataset)
-Densenet Accuracy: 88.23%
+#### Alexnet Accuracy: 64%
+#### Resnet Accuracy: 70.59% (self written code from scratch based on the same dataset)
+#### Densenet Accuracy: 88.23%
 
 
 ### Baseline Model Training Results
