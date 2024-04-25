@@ -243,7 +243,7 @@ python tools/train.py
   --config configs/resnet/resnet50_flowers.py
 
   --work-dir 'output/resnet50'
-''''
+'''
 
 #### More Models on Jupyter Notebook
 
@@ -252,13 +252,13 @@ python tools/train.py
 The folder in the main directory labeled "Alexnet and Densenet" contains a jupyter notebook containing the code
 to run alexnet and densenet in the same file. Download the 17flowers folder containing the labeled fdata from
 
-''''
+'''
 https://connecthkuhk-my.sharepoint.com/personal/u3570905_connect_hku_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fu3570905%5Fconnect%5Fhku%5Fhk%2FDocuments%2Funi%2Fy4%2Fy4sem2%2FCOMP3340%2D%20Applied%20Deep%20Learning%2Fproject%2Fflowers%2F17flowers&ga=1
+'''
 
 and run the Jupyter notebook.
 
-''''
-''''
+
 
 Alexnet Accuracy: 64%
 Resnet Accuracy: 70.59% (self written code from scratch based on the same dataset)
