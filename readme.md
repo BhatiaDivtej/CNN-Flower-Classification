@@ -1,6 +1,6 @@
 ## Graph 1: [All Baseline Models, Top 5 Accuracy]\
 \
-![Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-32 2.jpg)\
+![Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-32-2.jpg)\
 \
 \
 ## Graph 2: [All Baseline Models, Top 1 Accuracy]\
@@ -10,7 +10,7 @@
 \
 ## Graph 3: [Resnet50 Hyperparameter Tuning Iterations, Top-5 Accuracy Comparison]\
 \
-![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-33 2.jpg)\
+![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-33-2.jpg)\
 \
 \
 ## Graph 4: [Resnet50 Hyperparameter Tuning Iterations, Top-1 Accuracy Comparison]\
@@ -20,12 +20,12 @@
 \
 ## Graph 5: [Resnet18 Hyperparameter Tuning Iterations, Top-1 Accuracy Comparison]\
 \
-![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-40 2.jpg)\
+![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-40-2.jpg)\
 \
 \
 ## Graph 6: [Resnet18 Hyperparameter Tuning Iterations, Top-5 Accuracy Comparison]\
 \
-![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-40 3.jpg)\
+![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-53-40-3.jpg)\
 \
 \
 ## Graph 7: [Resnet18 and Resnet50, Top-5 Accuracy Comparison]\
@@ -50,7 +50,7 @@
 \
 ## Graph 11: [Regnetx_400mf Hyperparameter Tuning Iterations, Top-1 Accuracy Comparison]\
 \
-![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-58-45 2.jpg)\
+![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-20-58-45-2.jpg)\
 \
 \
 ## Graph 12: [Regnetx_400mf Hyperparameter Tuning Iterations, Top-5 Accuracy Comparison]\
@@ -60,7 +60,7 @@
 \
 ## Graph 13: [Regnet Models, Top-1 Accuracy Comparison]\
 \
-![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-21-01-39 2.jpg)\
+![Task 2 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-21-01-39-2.jpg)\
 \
 \
 ## Graph 14: [Regnetx Models, Top-5 Accuracy Comparison]\
@@ -80,7 +80,7 @@
 \
 ## Graph 17: [VGG Models, Top-5 Accuracy Comparison]\
 \
-![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-21-44-00 2.jpg)\
+![Task 3 Graph](https://github.com/BhatiaDivtej/Image-Classification-of-Flowers/blob/main/Graph_Images/PHOTO-2024-04-22-21-44-00-2.jpg)\
 \
 \
 ## Graph 18: [VGG Models, Top-1 Accuracy Comparison]\
