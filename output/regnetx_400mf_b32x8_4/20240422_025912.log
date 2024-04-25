@@ -1,0 +1,887 @@
+2024-04-22 02:59:12,732 - mmcls - INFO - Environment info:
+------------------------------------------------------------
+sys.platform: linux
+Python: 3.7.16 (default, Jan 17 2023, 22:20:44) [GCC 11.2.0]
+CUDA available: True
+GPU 0: NVIDIA GeForce RTX 2080 Ti
+CUDA_HOME: /usr/local/cuda
+NVCC: Cuda compilation tools, release 11.8, V11.8.89
+GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+PyTorch: 1.7.1
+PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2021.4-Product Build 20210904 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v1.6.0 (Git Hash 5ef631a030a6f73131c77892041042805a06064f)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 10.1
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 7.6.3
+  - Magma 2.5.2
+  - Build settings: BLAS=MKL, BUILD_TYPE=Release, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DUSE_VULKAN_WRAPPER -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, USE_CUDA=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+TorchVision: 0.8.2
+OpenCV: 4.9.0
+MMCV: 1.5.0
+MMCV Compiler: GCC 11.4
+MMCV CUDA Compiler: 11.8
+MMClassification: 0.15.0+321350b
+------------------------------------------------------------
+
+2024-04-22 02:59:12,732 - mmcls - INFO - Distributed training: False
+2024-04-22 02:59:12,896 - mmcls - INFO - Config:
+model = dict(
+    type='ImageClassifier',
+    backbone=dict(type='RegNet', arch='regnetx_400mf'),
+    neck=dict(type='GlobalAveragePooling'),
+    head=dict(
+        type='LinearClsHead',
+        num_classes=1000,
+        in_channels=384,
+        loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
+        topk=(1, 5)))
+dataset_type = 'Flowers'
+img_norm_cfg = dict(
+    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='RandomResizedCrop', size=224),
+    dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+    dict(
+        type='Normalize',
+        mean=[123.675, 116.28, 103.53],
+        std=[58.395, 57.12, 57.375],
+        to_rgb=True),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='ToTensor', keys=['gt_label']),
+    dict(type='Collect', keys=['img', 'gt_label'])
+]
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='Resize', size=(256, -1)),
+    dict(type='CenterCrop', crop_size=224),
+    dict(
+        type='Normalize',
+        mean=[123.675, 116.28, 103.53],
+        std=[58.395, 57.12, 57.375],
+        to_rgb=True),
+    dict(type='ImageToTensor', keys=['img']),
+    dict(type='Collect', keys=['img'])
+]
+data = dict(
+    samples_per_gpu=32,
+    workers_per_gpu=1,
+    train=dict(
+        type='Flowers',
+        data_prefix='data/flowers/train',
+        ann_file='data/flowers/meta/train.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='RandomResizedCrop', size=224),
+            dict(type='RandomFlip', flip_prob=0.5, direction='horizontal'),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='ToTensor', keys=['gt_label']),
+            dict(type='Collect', keys=['img', 'gt_label'])
+        ]),
+    val=dict(
+        type='Flowers',
+        data_prefix='data/flowers/val',
+        ann_file='data/flowers/meta/val.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='Resize', size=(256, -1)),
+            dict(type='CenterCrop', crop_size=224),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img'])
+        ]),
+    test=dict(
+        type='Flowers',
+        data_prefix='data/flowers/val',
+        ann_file='data/flowers/meta/val.txt',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='Resize', size=(256, -1)),
+            dict(type='CenterCrop', crop_size=224),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='ImageToTensor', keys=['img']),
+            dict(type='Collect', keys=['img'])
+        ]))
+evaluation = dict(interval=1, metric='accuracy')
+optimizer = dict(type='SGD', lr=0.2, momentum=0.7, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=None)
+lr_config = dict(policy='step', step=[10, 25])
+runner = dict(type='EpochBasedRunner', max_epochs=50)
+checkpoint_config = dict(interval=50)
+log_config = dict(interval=100, hooks=[dict(type='TextLoggerHook')])
+dist_params = dict(backend='nccl')
+log_level = 'INFO'
+load_from = None
+resume_from = None
+workflow = [('train', 1)]
+default_scope = 'mmpretrain'
+work_dir = 'output/regnetx_400mf_b32x8_4'
+gpu_ids = range(0, 1)
+
+2024-04-22 02:59:13,196 - mmcls - INFO - initialize LinearClsHead with init_cfg {'type': 'Normal', 'layer': 'Linear', 'std': 0.01}
+Name of parameter - Initialization information
+
+backbone.conv1.weight - torch.Size([32, 3, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.bn1.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.bn1.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.conv1.weight - torch.Size([32, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.bn1.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.bn1.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.conv2.weight - torch.Size([32, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.bn2.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.bn2.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.conv3.weight - torch.Size([32, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.bn3.weight - torch.Size([32]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer1.0.bn3.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.downsample.0.weight - torch.Size([32, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.downsample.1.weight - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer1.0.downsample.1.bias - torch.Size([32]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.conv1.weight - torch.Size([64, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.bn1.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.bn1.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.conv2.weight - torch.Size([64, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.bn2.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.bn2.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.conv3.weight - torch.Size([64, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.bn3.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer2.0.bn3.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.downsample.0.weight - torch.Size([64, 32, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.downsample.1.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.0.downsample.1.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.conv1.weight - torch.Size([64, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.bn1.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.bn1.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.conv2.weight - torch.Size([64, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.bn2.weight - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.bn2.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.conv3.weight - torch.Size([64, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer2.1.bn3.weight - torch.Size([64]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer2.1.bn3.bias - torch.Size([64]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.conv1.weight - torch.Size([160, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.0.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.downsample.0.weight - torch.Size([160, 64, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.downsample.1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.0.downsample.1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.1.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.1.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.2.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.2.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.3.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.3.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.4.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.4.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.5.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.5.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.conv1.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.bn1.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.bn1.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.conv2.weight - torch.Size([160, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.bn2.weight - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.bn2.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.conv3.weight - torch.Size([160, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer3.6.bn3.weight - torch.Size([160]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer3.6.bn3.bias - torch.Size([160]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.conv1.weight - torch.Size([384, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.0.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.downsample.0.weight - torch.Size([384, 160, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.downsample.1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.0.downsample.1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.1.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.1.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.2.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.2.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.3.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.3.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.4.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.4.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.5.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.5.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.6.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.6.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.7.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.7.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.8.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.8.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.9.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.9.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.10.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.10.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.conv1.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.bn1.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.bn1.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.conv2.weight - torch.Size([384, 16, 3, 3]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.bn2.weight - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.bn2.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.conv3.weight - torch.Size([384, 384, 1, 1]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+backbone.layer4.11.bn3.weight - torch.Size([384]): 
+Initialized by user-defined `init_weights` in RegNet  
+
+backbone.layer4.11.bn3.bias - torch.Size([384]): 
+The value is the same before and after calling `init_weights` of ImageClassifier  
+
+head.fc.weight - torch.Size([1000, 384]): 
+NormalInit: mean=0, std=0.01, bias=0 
+
+head.fc.bias - torch.Size([1000]): 
+NormalInit: mean=0, std=0.01, bias=0 
+2024-04-22 02:59:16,460 - mmcls - INFO - Start running, host: u3583070@gpu2-comp-108, work_dir: /userhome/cs2/u3583070/CNN-Flower-Classification/output/regnetx_400mf_b32x8_4
+2024-04-22 02:59:16,461 - mmcls - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) CheckpointHook                     
+(NORMAL      ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) EvalHook                           
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) StepLrUpdaterHook                  
+(NORMAL      ) EvalHook                           
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(ABOVE_NORMAL) OptimizerHook                      
+(NORMAL      ) CheckpointHook                     
+(NORMAL      ) EvalHook                           
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) CheckpointHook                     
+(NORMAL      ) EvalHook                           
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+before_val_epoch:
+(LOW         ) IterTimerHook                      
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+before_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(LOW         ) IterTimerHook                      
+ -------------------- 
+after_val_epoch:
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+after_run:
+(VERY_LOW    ) TextLoggerHook                     
+ -------------------- 
+2024-04-22 02:59:16,461 - mmcls - INFO - workflow: [('train', 1)], max: 50 epochs
+2024-04-22 02:59:16,461 - mmcls - INFO - Checkpoints will be saved to /userhome/cs2/u3583070/CNN-Flower-Classification/output/regnetx_400mf_b32x8_4 by HardDiskBackend.
+2024-04-22 02:59:28,699 - mmcls - INFO - Epoch(val) [1][6]	accuracy_top-1: 25.2941, accuracy_top-5: 80.5882
+2024-04-22 02:59:40,687 - mmcls - INFO - Epoch(val) [2][6]	accuracy_top-1: 32.3529, accuracy_top-5: 82.3529
+2024-04-22 02:59:52,387 - mmcls - INFO - Epoch(val) [3][6]	accuracy_top-1: 44.7059, accuracy_top-5: 92.9412
+2024-04-22 03:00:04,147 - mmcls - INFO - Epoch(val) [4][6]	accuracy_top-1: 48.8235, accuracy_top-5: 92.3529
+2024-04-22 03:00:16,081 - mmcls - INFO - Epoch(val) [5][6]	accuracy_top-1: 50.0000, accuracy_top-5: 91.7647
+2024-04-22 03:00:27,931 - mmcls - INFO - Epoch(val) [6][6]	accuracy_top-1: 55.2941, accuracy_top-5: 92.9412
+2024-04-22 03:00:39,497 - mmcls - INFO - Epoch(val) [7][6]	accuracy_top-1: 53.5294, accuracy_top-5: 94.1176
+2024-04-22 03:00:51,411 - mmcls - INFO - Epoch(val) [8][6]	accuracy_top-1: 52.3529, accuracy_top-5: 92.9412
+2024-04-22 03:01:03,404 - mmcls - INFO - Epoch(val) [9][6]	accuracy_top-1: 57.0588, accuracy_top-5: 93.5294
+2024-04-22 03:01:15,178 - mmcls - INFO - Epoch(val) [10][6]	accuracy_top-1: 61.1765, accuracy_top-5: 97.6471
+2024-04-22 03:01:27,014 - mmcls - INFO - Epoch(val) [11][6]	accuracy_top-1: 66.4706, accuracy_top-5: 95.8824
+2024-04-22 03:01:38,892 - mmcls - INFO - Epoch(val) [12][6]	accuracy_top-1: 68.2353, accuracy_top-5: 96.4706
+2024-04-22 03:01:50,786 - mmcls - INFO - Epoch(val) [13][6]	accuracy_top-1: 70.5882, accuracy_top-5: 96.4706
+2024-04-22 03:02:02,806 - mmcls - INFO - Epoch(val) [14][6]	accuracy_top-1: 68.8235, accuracy_top-5: 97.0588
+2024-04-22 03:02:14,753 - mmcls - INFO - Epoch(val) [15][6]	accuracy_top-1: 72.3529, accuracy_top-5: 96.4706
+2024-04-22 03:02:26,764 - mmcls - INFO - Epoch(val) [16][6]	accuracy_top-1: 71.7647, accuracy_top-5: 96.4706
+2024-04-22 03:02:38,860 - mmcls - INFO - Epoch(val) [17][6]	accuracy_top-1: 74.7059, accuracy_top-5: 97.0588
+2024-04-22 03:02:50,632 - mmcls - INFO - Epoch(val) [18][6]	accuracy_top-1: 74.7059, accuracy_top-5: 95.8824
+2024-04-22 03:03:02,257 - mmcls - INFO - Epoch(val) [19][6]	accuracy_top-1: 75.2941, accuracy_top-5: 97.0588
+2024-04-22 03:03:14,413 - mmcls - INFO - Epoch(val) [20][6]	accuracy_top-1: 72.3529, accuracy_top-5: 97.6471
+2024-04-22 03:03:26,522 - mmcls - INFO - Epoch(val) [21][6]	accuracy_top-1: 74.1176, accuracy_top-5: 96.4706
+2024-04-22 03:03:38,472 - mmcls - INFO - Epoch(val) [22][6]	accuracy_top-1: 73.5294, accuracy_top-5: 97.0588
+2024-04-22 03:03:50,666 - mmcls - INFO - Epoch(val) [23][6]	accuracy_top-1: 76.4706, accuracy_top-5: 96.4706
+2024-04-22 03:04:02,762 - mmcls - INFO - Epoch(val) [24][6]	accuracy_top-1: 77.0588, accuracy_top-5: 96.4706
+2024-04-22 03:04:14,812 - mmcls - INFO - Epoch(val) [25][6]	accuracy_top-1: 78.2353, accuracy_top-5: 97.6471
+2024-04-22 03:04:26,551 - mmcls - INFO - Epoch(val) [26][6]	accuracy_top-1: 78.2353, accuracy_top-5: 96.4706
+2024-04-22 03:04:38,252 - mmcls - INFO - Epoch(val) [27][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471
+2024-04-22 03:04:49,786 - mmcls - INFO - Epoch(val) [28][6]	accuracy_top-1: 77.6471, accuracy_top-5: 97.6471
+2024-04-22 03:05:01,475 - mmcls - INFO - Epoch(val) [29][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471
+2024-04-22 03:05:13,150 - mmcls - INFO - Epoch(val) [30][6]	accuracy_top-1: 79.4118, accuracy_top-5: 97.6471
+2024-04-22 03:05:25,075 - mmcls - INFO - Epoch(val) [31][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471
+2024-04-22 03:05:36,993 - mmcls - INFO - Epoch(val) [32][6]	accuracy_top-1: 78.2353, accuracy_top-5: 97.6471
+2024-04-22 03:05:49,177 - mmcls - INFO - Epoch(val) [33][6]	accuracy_top-1: 79.4118, accuracy_top-5: 97.6471
+2024-04-22 03:06:00,907 - mmcls - INFO - Epoch(val) [34][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471
+2024-04-22 03:06:12,804 - mmcls - INFO - Epoch(val) [35][6]	accuracy_top-1: 77.6471, accuracy_top-5: 97.6471
+2024-04-22 03:06:24,220 - mmcls - INFO - Epoch(val) [36][6]	accuracy_top-1: 79.4118, accuracy_top-5: 98.2353
+2024-04-22 03:06:36,118 - mmcls - INFO - Epoch(val) [37][6]	accuracy_top-1: 80.0000, accuracy_top-5: 98.2353
+2024-04-22 03:06:47,987 - mmcls - INFO - Epoch(val) [38][6]	accuracy_top-1: 80.0000, accuracy_top-5: 98.2353
+2024-04-22 03:06:59,984 - mmcls - INFO - Epoch(val) [39][6]	accuracy_top-1: 79.4118, accuracy_top-5: 97.6471
+2024-04-22 03:07:11,850 - mmcls - INFO - Epoch(val) [40][6]	accuracy_top-1: 78.2353, accuracy_top-5: 97.6471
+2024-04-22 03:07:24,160 - mmcls - INFO - Epoch(val) [41][6]	accuracy_top-1: 79.4118, accuracy_top-5: 97.6471
+2024-04-22 03:07:36,488 - mmcls - INFO - Epoch(val) [42][6]	accuracy_top-1: 79.4118, accuracy_top-5: 98.2353
+2024-04-22 03:07:48,536 - mmcls - INFO - Epoch(val) [43][6]	accuracy_top-1: 79.4118, accuracy_top-5: 98.2353
+2024-04-22 03:08:00,718 - mmcls - INFO - Epoch(val) [44][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471
+2024-04-22 03:08:12,282 - mmcls - INFO - Epoch(val) [45][6]	accuracy_top-1: 81.1765, accuracy_top-5: 98.2353
+2024-04-22 03:08:24,015 - mmcls - INFO - Epoch(val) [46][6]	accuracy_top-1: 81.1765, accuracy_top-5: 97.6471
+2024-04-22 03:08:35,639 - mmcls - INFO - Epoch(val) [47][6]	accuracy_top-1: 80.5882, accuracy_top-5: 98.2353
+2024-04-22 03:08:47,604 - mmcls - INFO - Epoch(val) [48][6]	accuracy_top-1: 79.4118, accuracy_top-5: 98.2353
+2024-04-22 03:08:59,241 - mmcls - INFO - Epoch(val) [49][6]	accuracy_top-1: 78.2353, accuracy_top-5: 98.2353
+2024-04-22 03:09:09,337 - mmcls - INFO - Saving checkpoint at 50 epochs
+2024-04-22 03:09:11,128 - mmcls - INFO - Epoch(val) [50][6]	accuracy_top-1: 78.8235, accuracy_top-5: 97.6471

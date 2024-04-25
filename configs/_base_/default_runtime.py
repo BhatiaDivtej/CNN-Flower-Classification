@@ -1,5 +1,5 @@
 # checkpoint saving
-checkpoint_config = dict(interval=1)
+checkpoint_config = dict(interval=50)
 # yapf:disable
 log_config = dict(
     interval=100,
@@ -14,3 +14,4 @@ log_level = 'INFO'
 load_from = None
 resume_from = None
 workflow = [('train', 1)]
+default_scope = 'mmpretrain'

@@ -17,10 +17,11 @@ from .timm_backbone import TIMMBackbone
 from .tnt import TNT
 from .vgg import VGG
 from .vision_transformer import VisionTransformer
+from .densenet import DenseNet
 
 __all__ = [
     'LeNet5', 'AlexNet', 'VGG', 'RegNet', 'ResNet', 'ResNeXt', 'ResNetV1d',
     'ResNeSt', 'ResNet_CIFAR', 'SEResNet', 'SEResNeXt', 'ShuffleNetV1',
     'ShuffleNetV2', 'MobileNetV2', 'MobileNetV3', 'VisionTransformer',
-    'SwinTransformer', 'TNT', 'TIMMBackbone'
+    'SwinTransformer', 'TNT', 'TIMMBackbone', 'DenseNet'
 ]
