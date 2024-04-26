@@ -1,15 +1,6 @@
-﻿# CNN Flower Classification Project 1 - Can a machine recognize images?
+﻿# Task: CNN Flower Classification Project 1 - Can a machine recognize images?
 
-### Course: COMP3340
-### Group Number: 22
 
-### Group Members:
-
--   AGARWAL, ARYAN  3035812373
--   RAJIV, ARNAV  3035709057
--   BHATIA, DIVTEJ SINGH  3035832438
--   AGRAWAL, RAHUL  3035756555
--   GOLI, SMARAN  3035830703
 
 
 This document provides the necessary steps to setup and run the CNN Flower Classification deep learning project using PyTorch, MMClassification, and a custom dataset of flower images. The project uses an RTX 1080Ti for training, but similar setups can be adjusted accordingly.
