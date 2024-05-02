@@ -1,4 +1,4 @@
-﻿# Task: CNN Flower Classification Project 1 - Can a machine recognize images?
+﻿# Task : CNN Flower Classification Project 1 - Can a machine recognize images?
 
 
 
