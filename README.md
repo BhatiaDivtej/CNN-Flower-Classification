@@ -1,8 +1,5 @@
 CNN Flower Classification Project
 
-
-
-
 This document provides the necessary steps to setup and run the CNN Flower Classification deep learning project using PyTorch, MMClassification, and a custom dataset of flower images. The project uses an RTX 1080Ti for training, but similar setups can be adjusted accordingly.
 
 ## Step 1. Installation
